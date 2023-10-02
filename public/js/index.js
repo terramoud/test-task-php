@@ -5,27 +5,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const registrationForm = document.getElementById("registration-form");
     registrationForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        // if (!isRegFormDataValid()) {
-        //     return;
-        // }
+        if (!isRegFormDataValid()) {
+            return;
+        }
         let formData = $(this).serialize();
         $.ajax({
             type: "POST",
             url: "/register",
             data: formData,
             success: responseJson => {
-                console.log(responseJson)
                 let response = JSON.parse(responseJson);
                 if (response.success) {
                     errorMessage.textContent = "";
-                    alert("Реєстрація успішна!");
+                    alert("Registration is successful!");
                     window.location.href = "/list-users";
-                } else {
-                    errorMessage.textContent = "Помилка під час реєстрації. Спробуйте ще раз.";
+                    return;
                 }
+                errorMessage.textContent = "Error during registration. Try again.";
             },
             error: () => {
-                alert("Помилка при відправці запиту на сервер.");
+                alert("Error 500. An error occurred when sending a request to the server.");
             }
         });
     });
@@ -57,7 +56,7 @@ function isRegFormDataValid() {
     }
 
     if (!patternPass.test(pass)) {
-        alert(`Please enter your password. It must contain at least one number and one uppercase and lowercase letter, and contain between 8 and 32 characters`);
+        alert(`Please enter your password. It must contain at least one number and one uppercase and lowercase letter, and contain between 8 and 32 characters. Only English letters and numbers are allowed`);
         return false;
     }
 
