@@ -1,0 +1,15 @@
+{
+    "name": "user/test-task-php",
+    "autoload": {
+        "psr-4": {
+            "User\\TestTaskPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oleksandr Koreshev",
+            "email": "a.koreshev1@gmail.com"
+        }
+    ],
+    "require": {}
+}
